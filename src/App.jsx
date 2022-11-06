@@ -1,75 +1,62 @@
+import Card from "./Card";
 import img from "./custo.jpg";
 import { useState } from "react";
 
+
+
 const App = () => {
-  const [bl, setBl] = useState(true);
+  const arr = [
+    {
+      name: "Sneaker",
+      price: "$120",
+      img: img,
+      text: "Информация3"
 
-  function addBask() {
-    setBl(!bl);
-  }
-  const [bl1, setBl1] = useState(true);
+    },
+    {
+      name: "Air Presto",
+      price: "$220",
+      img: "https://outmaxshop.ru/components/com_jshopping/files/img_products/4813/nike-air-presto-4813-1.jpg",
+      text: "Информация2"
+      
+    },
+    {
+      name: "Zoom Calm",
+      price: "$190",
+      img: "https://www.tvtshop.ru/upload/store/Products/Products66067/543a8e.jpg",
+      text: "Информация1"
+    },
+    {
+      name: "Puma Suede Classic",
+      price: "$245",
+      img: "https://redsneaker.ru/components/com_jshopping/files/img_products/4948/puma-suede-classic-4948-1.jpg",
+      text: "Информация"
+    } 
 
-  function addDetails() {
-    setBl1(!bl1);
+  ]
+  const [prod, setProd] = useState(arr)
+
+  const findArr = (e) => {
+      setProd(arr.filter(item => {
+        return item.name.toLowerCase().trim().indexOf(e.target.value.toLowerCase().trim()) != -1 ? item : null
+      }))
   }
 
   return (
     <div>
-      {" "}
-      <div className="container">
-        <img className="img" src={img} alt="" />
-        <div className="info">
-          <div className="block">
-            <div className="text">
-              <h2>Nike Sneaker</h2>
-              <h2>$120</h2>
-            </div>
-            <div className="button1">
-              <button
-                className="button11"
-                onClick={() => {
-                  return bl1 ? addDetails() : null;
-                }}
-              >
-                Детали
-              </button>
-            </div>
-          </div>
-          <div className="block1">
-            <div className="text1">
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Expedita dolorem corrupti reiciendis quo itaque omnis quae, fug
-              </p>
-              <div className="button2">
-                <button
-                  className={`button22 ${bl ? "added" : null}`}
-                  onClick={!bl ? addBask : null}
-                >
-                  Добавить в корзину.
-                </button>
-                <button className={`${bl ? "add" : "noadd"}`} onClick={addBask}>
-                  Удалить из корзины.
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={`textBlock ${bl1 ? "no" : null}`}>
-          <button
-            className="iks"
-            onClick={() => {
-              addDetails();
-            }}
-          >
-            ❌
-          </button>
-          <h1 className="text-info">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ad
-            doloribus nesciunt cupiditate, deleniti{" "}
-          </h1>
-        </div>
+      <div className="contain">
+      <div className="form">
+    <input className="inputText" type="text" onChange={findArr} />
+
+  </div>
+     <div className="divcards">
+          {prod.map(item => {
+            return <Card text={item.text} arr={arr}name={item.name} price={item.price} img={item.img}/>
+          })}
+          
       </div>
+
+    </div>
     </div>
   );
 };
